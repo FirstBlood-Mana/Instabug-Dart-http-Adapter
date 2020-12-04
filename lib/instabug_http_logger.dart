@@ -33,7 +33,7 @@ class InstabugHttpLogger {
 
     // fill response data
     networkData.status = response.statusCode;
-    response.headers.forEach((header, value){
+    response.headers.forEach((String header, String value){
       networkData.responseHeaders[header] = value;
     });
     

@@ -73,7 +73,7 @@ class InstabugHttpClient extends InstabugHttpLogger implements http.Client {
 
   @override
   Future<http.Response> put(dynamic url, {Map<String, String> headers, dynamic body, Encoding encoding}) {
-    DateTime startTime = DateTime.now();
+    final DateTime startTime = DateTime.now();
     return client.put(url, headers: headers, encoding: encoding).then((response) {
       logger.logHttpResponse(response, startTime: startTime);
       return response;
@@ -82,14 +82,14 @@ class InstabugHttpClient extends InstabugHttpLogger implements http.Client {
 
   @override
   Future<String> read(dynamic url, {Map<String, String> headers}) {
-    return client.read(url, headers: headers).then((response) {
+    return client.read(url, headers: headers).then((String response) {
       return response;
     });
   }
 
   @override
   Future<Uint8List> readBytes(dynamic url, {Map<String, String> headers}) {
-    return client.readBytes(url, headers: headers).then((response) {
+    return client.readBytes(url, headers: headers).then((Uint8List response) {
       return response;
     });
   }

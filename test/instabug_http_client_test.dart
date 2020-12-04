@@ -13,12 +13,12 @@ class MockHttpClient extends Mock implements http.Client {}
 class MockInstabugHttpLogger extends Mock implements InstabugHttpLogger {}
 
 void main() {
-  const fakeResponse = {
-    "id": "123",
-    "activationCode": "111111",
+  const Map<String, String> fakeResponse = {
+    'id': '123',
+    'activationCode': '111111',
   };
-  const url = 'http://www.instabug.com';
-  http.Response mockedResponse = http.Response(json.encode(fakeResponse), 200);
+  const String url = 'http://www.instabug.com';
+  final http.Response mockedResponse = http.Response(json.encode(fakeResponse), 200);
   InstabugHttpClient instabugHttpClient;
 
   setUp(() {
@@ -31,7 +31,7 @@ void main() {
 
     when<dynamic>(instabugHttpClient.client.get(any))
         .thenAnswer((_) async => mockedResponse);
-    var result = await instabugHttpClient.get(url);
+    final http.Response result = await instabugHttpClient.get(url);
     expect(result, isInstanceOf<http.Response>());
     expect(result, mockedResponse);
     verify(instabugHttpClient.logger
@@ -43,7 +43,7 @@ void main() {
 
     when<dynamic>(instabugHttpClient.client.head(any))
         .thenAnswer((_) async => mockedResponse);
-    var result = await instabugHttpClient.head(url);
+    final http.Response result = await instabugHttpClient.head(url);
     expect(result, isInstanceOf<http.Response>());
     expect(result, mockedResponse);
     verify(instabugHttpClient.logger
@@ -55,7 +55,7 @@ void main() {
 
     when<dynamic>(instabugHttpClient.client.delete(any))
         .thenAnswer((_) async => mockedResponse);
-    var result = await instabugHttpClient.delete(url);
+    final http.Response result = await instabugHttpClient.delete(url);
     expect(result, isInstanceOf<http.Response>());
     expect(result, mockedResponse);
     verify(instabugHttpClient.logger
@@ -67,7 +67,7 @@ void main() {
 
     when<dynamic>(instabugHttpClient.client.patch(any))
         .thenAnswer((_) async => mockedResponse);
-    var result = await instabugHttpClient.patch(url);
+    final http.Response result = await instabugHttpClient.patch(url);
     expect(result, isInstanceOf<http.Response>());
     expect(result, mockedResponse);
     verify(instabugHttpClient.logger
@@ -79,7 +79,7 @@ void main() {
     
     when<dynamic>(instabugHttpClient.client.post(any))
         .thenAnswer((_) async => mockedResponse);
-    var result = await instabugHttpClient.post(url);
+    final http.Response result = await instabugHttpClient.post(url);
     expect(result, isInstanceOf<http.Response>());
     expect(result, mockedResponse);
     verify(instabugHttpClient.logger
@@ -91,7 +91,7 @@ void main() {
     
     when<dynamic>(instabugHttpClient.client.put(any))
         .thenAnswer((_) async => mockedResponse);
-    var result = await instabugHttpClient.put(url);
+    final http.Response result = await instabugHttpClient.put(url);
     expect(result, isInstanceOf<http.Response>());
     expect(result, mockedResponse);
     verify(instabugHttpClient.logger
@@ -101,10 +101,10 @@ void main() {
 
    test('expect instabug http client READ to return response', () async {
     
-    String response = 'Some response string';
+    const String response = 'Some response string';
     when<dynamic>(instabugHttpClient.client.read(any))
         .thenAnswer((_) async => response);
-    var result = await instabugHttpClient.read(url);
+    final String result = await instabugHttpClient.read(url);
     expect(result, isInstanceOf<String>());
     expect(result, response);
     verifyNever(instabugHttpClient.logger
@@ -113,7 +113,7 @@ void main() {
 
   test('expect instabug http client READBYTES to return response', () async {
     
-    Uint8List response = Uint8List(3);
+    final Uint8List response = Uint8List(3);
     when<dynamic>(instabugHttpClient.client.readBytes(any))
         .thenAnswer((_) async => response);
     var result = await instabugHttpClient.readBytes(url);
@@ -125,10 +125,10 @@ void main() {
 
   test('expect instabug http client SEND to return response', () async {
     
-    http.StreamedResponse response = http.StreamedResponse(Stream.empty(), 200);
+    final http.StreamedResponse response = http.StreamedResponse(const Stream.empty(), 200);
     when<dynamic>(instabugHttpClient.client.send(any))
         .thenAnswer((_) async => response);
-    var result = await instabugHttpClient.send(http.Request('GET', Uri.parse(url)));
+    final http.StreamedResponse result = await instabugHttpClient.send(http.Request('GET', Uri.parse(url)));
     expect(result, isInstanceOf<http.StreamedResponse>());
     expect(result, response);
     verifyNever(instabugHttpClient.logger
