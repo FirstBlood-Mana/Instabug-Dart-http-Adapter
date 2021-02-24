@@ -11,10 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  instabug_flutter: 
-    git:
-      url: https://github.com/FirstBlood-Mana/Instabug-Flutter
-      ref: 7a2d89152c5bd1fac0b382e4e5c1d6ec156db9ae
+  instabug_flutter: ^9.1.8
   http: ^0.12.0+2
   meta: ^1.1.6
 
