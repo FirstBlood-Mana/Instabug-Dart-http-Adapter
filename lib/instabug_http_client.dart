@@ -8,25 +8,21 @@ import 'package:http/http.dart' as http;
 import 'package:instabug_http_client/instabug_http_logger.dart';
 import 'package:meta/meta.dart';
 
-
-
 class InstabugHttpClient extends InstabugHttpLogger implements http.Client {
+  InstabugHttpClient() : super() {
+    client = http.Client();
+    logger = this;
+  }
 
   @visibleForTesting
   http.Client client;
 
   @visibleForTesting
   InstabugHttpLogger logger;
-  
-  InstabugHttpClient() : super() {
-    client = http.Client();
-    logger = this;
-  }
-
-  
 
   @override
-  Future<http.Response> delete(dynamic url, {Map<String, String> headers}) {
+  Future<http.Response> delete(Uri url,
+      {Map<String, String> headers, Object body, Encoding encoding}) {
     DateTime startTime = DateTime.now();
     return client.delete(url, headers: headers).then((response) {
       logger.logHttpResponse(response, startTime: startTime);
@@ -36,7 +32,6 @@ class InstabugHttpClient extends InstabugHttpLogger implements http.Client {
 
   @override
   Future<http.Response> get(dynamic url, {Map<String, String> headers}) {
-    
     DateTime startTime = DateTime.now();
     return client.get(url, headers: headers).then((response) {
       logger.logHttpResponse(response, startTime: startTime);
@@ -54,27 +49,36 @@ class InstabugHttpClient extends InstabugHttpLogger implements http.Client {
   }
 
   @override
-  Future<http.Response> patch(dynamic url, {Map<String, String> headers, dynamic body, Encoding encoding}) {
+  Future<http.Response> patch(dynamic url,
+      {Map<String, String> headers, dynamic body, Encoding encoding}) {
     DateTime startTime = DateTime.now();
-    return client.patch(url, headers: headers, encoding: encoding).then((response) {
+    return client
+        .patch(url, headers: headers, encoding: encoding)
+        .then((response) {
       logger.logHttpResponse(response, startTime: startTime);
       return response;
     });
   }
 
   @override
-  Future<http.Response> post(dynamic url, {Map<String, String> headers, dynamic body, Encoding encoding}) {
+  Future<http.Response> post(dynamic url,
+      {Map<String, String> headers, dynamic body, Encoding encoding}) {
     DateTime startTime = DateTime.now();
-    return client.post(url, headers: headers, encoding: encoding).then((response) {
+    return client
+        .post(url, headers: headers, encoding: encoding)
+        .then((response) {
       logger.logHttpResponse(response, startTime: startTime);
       return response;
     });
   }
 
   @override
-  Future<http.Response> put(dynamic url, {Map<String, String> headers, dynamic body, Encoding encoding}) {
+  Future<http.Response> put(dynamic url,
+      {Map<String, String> headers, dynamic body, Encoding encoding}) {
     final DateTime startTime = DateTime.now();
-    return client.put(url, headers: headers, encoding: encoding).then((response) {
+    return client
+        .put(url, headers: headers, encoding: encoding)
+        .then((response) {
       logger.logHttpResponse(response, startTime: startTime);
       return response;
     });
@@ -103,5 +107,4 @@ class InstabugHttpClient extends InstabugHttpLogger implements http.Client {
   void close() {
     client.close();
   }
-
 }
